@@ -60,8 +60,14 @@ fn shell_escape(arg: String) -> String {
     arg
 }
 
+fn get_program_name() -> String {
+    let current_exe_path = env::current_exe().unwrap();
+    let current_file_name = current_exe_path.file_stem().unwrap().to_str().unwrap();
+    return current_file_name.to_string();
+}
+
 fn main() {
-    let mut git_args: Vec<String> = vec![String::from("git")];
+    let mut git_args: Vec<String> = vec![get_program_name()];
     git_args.extend(env::args().skip(1)
         .map(translate_path_to_unix)
         .map(shell_escape));
