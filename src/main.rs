@@ -1,5 +1,6 @@
 use std::env;
 use std::process::{Command, Stdio};
+use std::path::Path;
 
 fn translate_path_to_unix(arg: String) -> String {
     if let Some(index) = arg.find(":\\") {
@@ -19,6 +20,16 @@ fn translate_path_to_unix(arg: String) -> String {
                     }
                 ).collect::<String>());
             return wsl_path;
+        }
+    } else {
+        // maybe a relative path
+        if let Some(backslash_index) = arg.find("\\") {
+            // \somepach not a relative path
+            if backslash_index > 1 {
+                if Path::new(&arg).exists() {
+                    return arg.replace("\\", "/").to_string();
+                }
+            }
         }
     }
     arg
