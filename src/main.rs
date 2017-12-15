@@ -49,7 +49,7 @@ fn translate_path_to_win(line: &str) -> String {
                     return String::from(line);
                 }
                 let mut win_path = String::from(
-                    drive.to_uppercase().collect::<String>());
+                    drive.to_lowercase().collect::<String>());
                 win_path.push_str(":/");
                 win_path.push_str(&path_chars.collect::<String>());
                 return win_path;
