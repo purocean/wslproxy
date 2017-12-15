@@ -50,9 +50,9 @@ fn translate_path_to_win(line: &str) -> String {
                 }
                 let mut win_path = String::from(
                     drive.to_lowercase().collect::<String>());
-                win_path.push_str(":/");
+                win_path.push_str(":\\");
                 win_path.push_str(&path_chars.collect::<String>());
-                return win_path;
+                return win_path.replace("/", "\\").to_string();
             }
         }
     }
